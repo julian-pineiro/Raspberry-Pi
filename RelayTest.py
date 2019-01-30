@@ -6,8 +6,8 @@ SMTP
 raspberrypi.julianpineiro@gmail.com
 raspberryadmin
 '''
-#import RPi.GPIO as GPIO
-import FakeRPi.GPIO as GPIO
+import RPi.GPIO as GPIO
+#import FakeRPi.GPIO as GPIO
 import time
 import os
 import smtplib
@@ -16,9 +16,12 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
+import pymysql
+
+
 
 #SMTP Configuration
-sent_from = 'raspberrypi.julianpineiro@gmail.com'
+sent_from = 'raspberry.julianpineiro@gmail.com'
 to = 'julipineiro@gmail.com'
 subject = 'Raspberry Pi Notification'
 body = ''
@@ -26,6 +29,14 @@ msg = MIMEMultipart()
 msg['Subject'] = subject
 msg['From'] = sent_from
 msg['To'] = to
+
+#Database Configuration for temperature logging.
+#db = PyMySQL.connect("localhost:port","username","password","database_name" )
+#cursor = db.cursor()
+#sql = "insert into table_name(id,feild1,feild2) values (1,value1,value2);"
+#cursor.execute(sql)
+#db.commit()
+
 
 #Send email function.
 def notify(body_text):
@@ -47,32 +58,38 @@ def notify(body_text):
 
 
 #to turn on the board.
-#GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)  
-  
+GPIO.cleanup()
+
 # init list with pin numbers  
+relay1 = 17
+relay2 = 23
+relays = [relay1, relay2]
   
-pinList = [17, 23]  
-  
-# loop through pins and set mode and state to 'low'  
-  
-for i in pinList:   
+# loop through pins (relays) and set mode and state to 'high'  
+for i in relays:   
   GPIO.setup(i, GPIO.OUT)   
-  GPIO.output(i, GPIO.HIGH)  
-  
-# time to sleep between operations in the main loop  
-SleepTimeL = 2  
-  
+  GPIO.output(i, GPIO.HIGH)
+
+# seconds to sleep between operations in the main loop  
+SleepTimeL = 2
+
 # main loop  
 try:  
-    GPIO.output(17, GPIO.LOW) #LOW - HIGH are both configurations of a relay.
-    print ("SWITCHING RELAY ONE...")
+    GPIO.output(relay1, GPIO.LOW) #LOW - HIGH are both configurations of a relay.
+    print ("SWITCHING ON RELAY ONE...")
     time.sleep(SleepTimeL);   
-    GPIO.output(23, GPIO.LOW)  
-    print ("SWITCHING RELAY TWO...")
+    GPIO.output(relay2, GPIO.LOW)  
+    print ("SWITCHING ON RELAY TWO...")
+    time.sleep(SleepTimeL);
+    GPIO.output(relay1, GPIO.HIGH) #LOW - HIGH are both configurations of a relay.
+    print ("SWITCHING OFF RELAY ONE...")
+    time.sleep(SleepTimeL);   
+    GPIO.output(relay2, GPIO.HIGH)  
+    print ("SWITCHING OFF RELAY TWO...")
     time.sleep(SleepTimeL);    
-    GPIO.cleanup()
-    notify("Success! Relay should've switched.") 
+    
     
 # End program cleanly with keyboard  
 except KeyboardInterrupt:  
