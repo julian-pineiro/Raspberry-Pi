@@ -3,9 +3,7 @@
 '''
 SMTP
 raspberrypi.julianpineiro@gmail.com
-raspberryadmin
 '''
-
 import os
 import smtplib
 from os.path import basename
