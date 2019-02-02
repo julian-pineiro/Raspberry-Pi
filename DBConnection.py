@@ -1,20 +1,31 @@
 #Module: DBConnection
 #Connects with the database and implements get and insert methods.
-import pymysql
+import pymysql.cursors
 
-#Database Configuration for temperature logging.
-db = PyMySQL.connect("localhost:port","sensorio","vvhc*p+n)~ht","ojc_sensor" )
-cursor = db.cursor()
+#CRUD EXAMPLE
 
-#Example:
-#sql = ""
-#cursor.execute(sql)
-#db.commit()
-#print("Sensor 01 database created.")
+connection = pymysql.connect(host='localhost', #Must config Host.
+                             user='sensorio',
+                             password='vvhc*p+n)~ht',
+                             db='ojc_sensor',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
 
-def insertTempHum(date, temp, hum):
-    sql = "insert into "+Temperature+"(id,feild1,feild2) values ("+date+
-        ","+temp+","+hum+");"
-    cursor.execute(sql)
-    db.commit()
+try:
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)"
+        cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
 
+    # connection is not autocommit by default. So you must commit to save
+    # your changes.
+    connection.commit()
+
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
+        cursor.execute(sql, ('webmaster@python.org',))
+        result = cursor.fetchone()
+        print(result)
+finally:
+    connection.close()
