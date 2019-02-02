@@ -30,13 +30,13 @@ def notify(body_text):
     try:  
         server = smtplib.SMTP_SSL('smtp.gmail.com')
         server.ehlo()
-        print("Trying to log in...")
+        #print("Trying to log in...")
         server.login('raspberry.julianpineiro@gmail.com', 'password')
-        print("Logged in sucessufully!")
-        print("Sending...")
+        #print("Logged in sucessufully!")
+        #print("Sending...")
         server.sendmail(sent_from, to, msg.as_string())
         server.close()
-        print ('Email sent!')
+        #print ('Email sent!')
     
     except:  
         print ('Check Internet Connection... Something went wrong! :(')
