@@ -1,9 +1,8 @@
 #Module: DBConnection
 #Connects with the database and implements get and insert methods.
 import pymysql.cursors
-
-#CRUD EXAMPLE
 passw = #password
+#CRUD EXAMPLE
 '''
 connection = pymysql.connect(host='localhost', #Must config Host.
                              user='root',
@@ -42,7 +41,7 @@ def getStart(pi):
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
             # Read a single record
-            sql = "SELECT `start`, FROM `relays` WHERE `pi`="+str(pi)+"`"
+            sql = "SELECT `start` FROM `relays` WHERE id="+str(pi)
             cursor.execute(sql)
             result = cursor.fetchone()
             return result
@@ -59,7 +58,7 @@ def getFinish(pi):
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
             # Read a single record
-            sql = "SELECT `finish`, FROM `relays` WHERE `pi`="+str(pi)+"`"
+            sql = "SELECT `finish` FROM `relays` WHERE id="+str(pi)
             cursor.execute(sql)
             result = cursor.fetchone()
             return result
@@ -76,7 +75,7 @@ def insertConfig(pi, start, finish):
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
             # Create a new record
-            sql = "INSERT INTO relays VALUES ('"+str(pi)+"', '"+str(date)+"', '"+str(temp)+"', '"+str(hum)+"');"
+            sql = "REPLACE INTO relays VALUES ('"+str(pi)+"', '"+str(start)+"', '"+str(finish)+"')"
             cursor.execute(sql)
             # connection is not autocommit by default. So you must commit to save
             # your changes.

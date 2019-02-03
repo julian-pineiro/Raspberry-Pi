@@ -1,6 +1,7 @@
 #Module: EmailNotify
 #Implements email notifications for emergency notification.
 '''
+
 SMTP
 raspberrypi.julianpineiro@gmail.com
 '''
@@ -11,7 +12,6 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
-#Needs review soon
 
 #SMTP Configuration
 sent_from = 'raspberry.julianpineiro@gmail.com'
