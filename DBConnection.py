@@ -3,11 +3,11 @@
 import pymysql.cursors
 
 #CRUD EXAMPLE
-passw = #password
+passw = "Nosenose1234"
 '''
 connection = pymysql.connect(host='localhost', #Must config Host.
                              user='root',
-                             password='Nosenose1234',
+                             password='password',
                              db='raspberry',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
@@ -76,7 +76,7 @@ def insertConfig(pi, start, finish):
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
             # Create a new record
-            sql = "INSERT INTO relays VALUES ('"+str(pi)+"', '"+str(date)+"', '"+str(temp)+"', '"+str(hum)+"');"
+            sql = "REPLACE INTO relays VALUES ('"+str(pi)+"', '"+str(start)+"', '"+str(finish)+"')"
             cursor.execute(sql)
             # connection is not autocommit by default. So you must commit to save
             # your changes.

@@ -31,7 +31,7 @@ def notify(body_text):
         server = smtplib.SMTP_SSL('smtp.gmail.com')
         server.ehlo()
         #print("Trying to log in...")
-        server.login('raspberry.julianpineiro@gmail.com', 'password')
+        server.login('raspberry.julianpineiro@gmail.com', 'raspberrypass')
         #print("Logged in sucessufully!")
         #print("Sending...")
         server.sendmail(sent_from, to, msg.as_string())
