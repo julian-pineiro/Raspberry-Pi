@@ -292,7 +292,7 @@ class multiscreen(App):
         now = datetime.date.today()
         start = str(now)+" "+time1
         finish = str(now)+" "+time2
-        db.insertConfig('1',start,finish)
+        db.insertConfig('1',start,finish, '1')
         self.screen1.children['relay1result'].set_text("Successfully modified relay 1.")
         mail.notify("The start for relay 1 has been set to "+ str(start)+
                     " and the finish time has been set to "+str(finish))

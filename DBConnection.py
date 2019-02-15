@@ -3,21 +3,22 @@
 import pymysql.cursors
 
 #CRUD EXAMPLE
-passw = "Nosenose1234"
+passw = "V:^R|>C*.u<2M7YT0sM-8{WG1EJ_9QiT"
 '''
-connection = pymysql.connect(host='localhost', #Must config Host.
-                             user='root',
-                             password='password',
-                             db='raspberry',
+connection = pymysql.connect(host='ls-e6f7569677539f634f81fad13d0e60afda8741bd.chxqoehlj9km.ap-southeast-2.rds.amazonaws.com', #Must config Host.
+                             user='dbmasteruser',
+                             password='tK[4tH9Uw.}4',
+                             db='ojc_sensor',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 '''
 def insertTemp(pi, date, temp, hum):
     try:
-        connection = pymysql.connect(host='localhost', #Must config Host.
-                             user='root',
+        connection = pymysql.connect(host='ls-e6f7569677539f634f81fad13d0e60afda8741bd.chxqoehlj9km.ap-southeast-2.rds.amazonaws.com',
+                             port = 3306,   
+                             user='dbmasteruser',
                              password=passw,
-                             db='raspberry',
+                             db='ojc_sensor',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
@@ -34,10 +35,11 @@ def insertTemp(pi, date, temp, hum):
 
 def getStart(pi):
     try:
-        connection = pymysql.connect(host='localhost', #Must config Host.
-                             user='root',
+        connection = pymysql.connect(host='ls-e6f7569677539f634f81fad13d0e60afda8741bd.chxqoehlj9km.ap-southeast-2.rds.amazonaws.com',
+                             port = 3306,   
+                             user='dbmasteruser',
                              password=passw,
-                             db='raspberry',
+                             db='ojc_sensor',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
@@ -51,10 +53,11 @@ def getStart(pi):
 
 def getFinish(pi):
     try:
-        connection = pymysql.connect(host='localhost', #Must config Host.
-                             user='root',
+        connection = pymysql.connect(host='ls-e6f7569677539f634f81fad13d0e60afda8741bd.chxqoehlj9km.ap-southeast-2.rds.amazonaws.com',
+                             port = 3306,   
+                             user='dbmasteruser',
                              password=passw,
-                             db='raspberry',
+                             db='ojc_sensor',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
@@ -66,17 +69,19 @@ def getFinish(pi):
     finally:
         connection.close()
 
-def insertConfig(pi, start, finish):
+def insertConfig(pi, start, minutes, days):
     try:
-        connection = pymysql.connect(host='localhost', #Must config Host.
-                             user='root',
+        connection = pymysql.connect(host='ls-e6f7569677539f634f81fad13d0e60afda8741bd.chxqoehlj9km.ap-southeast-2.rds.amazonaws.com',
+                             port = 3306,   
+                             user='dbmasteruser',
                              password=passw,
-                             db='raspberry',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+                             db='ojc_sensor',
+                             #charset='utf8mb4'
+                             #cursorclass=pymysql.cursors.DictCursor
+                            )
         with connection.cursor() as cursor:
             # Create a new record
-            sql = "REPLACE INTO relays VALUES ('"+str(pi)+"', '"+str(start)+"', '"+str(finish)+"')"
+            sql = "REPLACE INTO relays VALUES ('"+str(pi)+"', '"+str(start)+"', '"+str(minutes)+"', '"+str(days)+"')"
             cursor.execute(sql)
             # connection is not autocommit by default. So you must commit to save
             # your changes.
