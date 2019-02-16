@@ -40,7 +40,7 @@ class screen1Widget(Widget):
         super(screen1Widget,self).__init__(**kwargs)
         self.style['position'] = "absolute"
         self.style['overflow'] = "auto"
-        self.style['background-color'] = "#ffff80"
+        self.style['background-color'] = "lightblue"
         self.style['left'] = "10px"
         self.style['top'] = "10px"
         self.style['margin'] = "0px"
@@ -197,14 +197,14 @@ class multiscreen(App):
         baseContainer.attributes['editor_constructor'] = "()"
         baseContainer.style['position'] = "absolute"
         baseContainer.style['overflow'] = "auto"
-        baseContainer.style['left'] = "100px"
-        baseContainer.style['top'] = "120px"
+        baseContainer.style['left'] = "0px"
+        baseContainer.style['top'] = "0px"
         baseContainer.style['margin'] = "0px"
         baseContainer.style['border-style'] = "solid"
-        baseContainer.style['width'] = "670px"
+        baseContainer.style['width'] = "630px"
         baseContainer.style['display'] = "block"
         baseContainer.style['border-width'] = "1px"
-        baseContainer.style['height'] = "550px"
+        baseContainer.style['height'] = "520px"
         
         #The menuContainer on the left side
         menuContainer = Widget()
@@ -342,8 +342,7 @@ class multiscreen(App):
         
         db.insertConfig('1',start1,duration1,days1,edittime1)
         self.screen1.children['relay1result'].set_text("Successfully modified relay 1.")
-        mail.notify("The start for relay 1 has been set to "+ str(start)+
-                    " and the finish time has been set to "+str(finish))
+        mail.notify("The start for relay 1 has been set to "+ str(start))
         
     def save_relay_2(self,emitter):
         print('save 2')

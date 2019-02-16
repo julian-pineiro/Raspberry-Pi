@@ -22,7 +22,7 @@ import DBConnection as db
 ''' This Pi Configuration '''
 #Pi_id is the name it will
 #Have in the database.
-pi_id = 1
+pi_id = 2
 
 #to turn on the board.
 GPIO.setwarnings(False)
@@ -88,23 +88,21 @@ while True:
     for thistime in range(len(starttimes)):
         if ((now-starttimes[thistime]).total_seconds()>0 and
             (now-endtimes[thistime]).total_seconds()<0):
-            #remaining = now-endtimes[thistime]
-            #print(remaining)
             #Get the total time to water.
             #Turn on the pump
             pumpRelay.switchOn()
-            mail.notify("Watering pump 1")
-            print("Pump activated.")
+            mail.notify("Watering valve 1")
+            print("Watering Valve 1.")
             #Wait the watering time
             print("Sleeping "+str(duration)+" minutes")
             t.sleep(duration_seconds)
             #Turn off the pump
             pumpRelay.switchOff()
-            print("No longer pumping.")
-            mail.notify("No longer watering Pump 1")
+            print("No longer watering.")
+            mail.notify("No longer watering valve 1")
             
         #Go back to checking after a while.
-        print("Pump sleeping "+ str(SleepTime)+ " seconds.")
+        print("Sleeping "+ str(SleepTime)+ " seconds.")
         t.sleep(SleepTime)
     
 
